@@ -20,3 +20,8 @@ A list with three items
 Computes the k-rank approximation to A_norm and adjusts 
 it according to the error distribution learned from the negative values.
 }
+\examples{
+result.completed <- adjusted_svd(A_norm,15)
+    A_norm_rank15 <- result.completed[[1]]     # The low rank approximation for reference purposes...not suggested for matrix completion
+    A_norm_rank15_cor <- result.completed[[3]] # The actual adjusted, completed matrix
+}

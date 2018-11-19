@@ -1,8 +1,10 @@
 Package: ALRA
 Title: Adaptively-thresholded Low Rank Approximation 
 Version: 1.0.0.0000
-Authors@R: person("Miles", "Smith", email = "miles-smith@omrf.org", role = "aut")
-Maintainer: Miles Smith <miles-smith@ormf.org>
+Authors@R: person("Miles", "Smith", , email = "miles-smith@omrf.org",
+                  role = c("aut"))
+Author: George C. Linderman <unknown@something.com>
+Maintainer: Miles Smith <miles-smith@omrf.org>
 Description: Package version of the ALRA algorithm created by the Kluger Lab
 Depends: R (>= 3.5.0),
   rsvd,
