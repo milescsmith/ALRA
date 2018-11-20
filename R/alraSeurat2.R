@@ -14,6 +14,7 @@
 #' @importFrom glue glue
 #' @importFrom Seurat GetAssayData SetAssayData
 #'
+#' @export
 #' @return an updated Seurat object with the ALRA imputed data in the "data" 
 #' slot of the ALRA assay slot
 #'
@@ -21,6 +22,7 @@ alraSeurat2 <- function(obj, assay.use = "RNA", slot.use = "data", ...) {
   seurat_data <- GetAssayData(object = obj, 
                               assay.type = assay.use, 
                               slot = slot.use) %>% 
+    as.matrix() %>%
     t()
   data_alra <- alra(seurat_data, 
                     ...) %>% 

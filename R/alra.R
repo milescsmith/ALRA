@@ -50,10 +50,7 @@ alra <- function(A_norm, k = 0, q = 10, do.par = FALSE) {
 
   message("Randomized SVD\n")
   fastDecomp_noc <- rsvd(A_norm, k, q = q)
-  # A_norm_rank_k <- fastDecomp_noc$u[, 1:k] %*% diag(fastDecomp_noc$d[1:k]) %*% t(fastDecomp_noc$v[, 1:k])
-  A_norm_rank_k <- fastDecomp_noc$u[, 1:k] %>% 
-    crossprod(diag(fastDecomp_noc$d[1:k])) %>% 
-    tcrossprod(fastDecomp_noc$v[, 1:k])
+  A_norm_rank_k <- fastDecomp_noc$u[, 1:k] %*% diag(fastDecomp_noc$d[1:k]) %>% tcrossprod(fastDecomp_noc$v[, 1:k])
   
   message("Find mins\n")
   A_norm_rank_k_mins <- apply_fun(A_norm_rank_k, 2, min) %>% abs()
@@ -85,7 +82,7 @@ alra <- function(A_norm, k = 0, q = 10, do.par = FALSE) {
   lt0 <- A_norm_rank_k_cor_sc < 0
   A_norm_rank_k_cor_sc[lt0] <- 0
   num_of_zeros <- 100 * sum(lt0) / (nrow(A_norm) * ncol(A_norm))
-  message(glue("{num_of_zeros.2f} of the values became negative in the scaling process and were set to zero\n"))
+  message(glue("{format(num_of_zeros, digits = 2)} of the values became negative in the scaling process and were set to zero\n"))
 
   A_norm_rank_k_cor_sc[originally_nonzero & A_norm_rank_k_cor_sc == 0] <- A_norm[originally_nonzero & A_norm_rank_k_cor_sc == 0]
 
@@ -95,7 +92,7 @@ alra <- function(A_norm, k = 0, q = 10, do.par = FALSE) {
 
   original_nz <- sum(A_norm > 0) / (nrow(A_norm) * ncol(A_norm))
   completed_nz <- sum(A_norm_rank_k_cor_sc > 0) / (nrow(A_norm) * ncol(A_norm))
-  cat(glue("The matrix went from {(100 * original_nz).2f} nonzero to {(100 * completed_nz).2f} nonzero\n"))
+  cat(glue("The matrix went from {format((100 * original_nz), digits = 2)} nonzero to {format((100 * completed_nz), digits = 2)} nonzero\n"))
 
   list(A_norm_rank_k = A_norm_rank_k, A_norm_rank_k_cor = A_norm_rank_k_cor, A_norm_rank_k_cor_sc = A_norm_rank_k_cor_sc)
 }
