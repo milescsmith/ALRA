@@ -28,7 +28,7 @@ alraSeurat2 <- function(obj, assay.use = "RNA", slot.use = "data", ...) {
                     ...) %>% 
     '[['(3) %>%
     t()
-  colnames(data_alra) <- obj@cell.names
+  colnames(data_alra) <- colnames(obj)
   rownames(data_alra) <- glue("ALRA_{rownames(data_alra)}")
   data_alra <- Matrix(data_alra, sparse = T)
   obj <- SetAssayData(object = obj, 
