@@ -1,6 +1,6 @@
 Package: ALRA
 Title: Adaptively-thresholded Low Rank Approximation 
-Version: 1.0.0.0000
+Version: 1.0.1.0000
 Authors@R: person("Miles", "Smith", , email = "miles-smith@omrf.org",
                   role = c("aut"))
 Author: George C. Linderman <unknown@something.com>
