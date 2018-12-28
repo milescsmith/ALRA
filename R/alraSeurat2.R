@@ -20,20 +20,18 @@
 #'
 alraSeurat2 <- function(obj, assay.use = "RNA", slot.use = "data", ...) {
   seurat_data <- GetAssayData(object = obj, 
-                              assay.type = assay.use, 
+                              assay = assay.use, 
                               slot = slot.use) %>% 
     as.matrix() %>%
     t()
-  data_alra <- alra(seurat_data, 
+  alra_data <- alra(seurat_data, 
                     ...) %>% 
     '[['(3) %>%
     t()
-  colnames(data_alra) <- colnames(obj)
-  rownames(data_alra) <- glue("ALRA_{rownames(data_alra)}")
-  data_alra <- Matrix(data_alra, sparse = T)
-  obj <- SetAssayData(object = obj, 
-                      assay.type = "alra", 
-                      slot = "data", 
-                      new.data = data_alra)
+  colnames(alra_data) <- colnames(obj)
+  rownames(alra_data) <- rownames(obj)
+  alra_data <- Matrix(data_alra, sparse = T)
+  obj[["alra"]] <- CreateAssayObject(data = alra_data)
+
   return(obj)
 }
