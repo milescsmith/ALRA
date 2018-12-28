@@ -30,7 +30,7 @@ alraSeurat2 <- function(obj, assay.use = "RNA", slot.use = "data", ...) {
     t()
   colnames(alra_data) <- colnames(obj)
   rownames(alra_data) <- rownames(obj)
-  alra_data <- Matrix(data_alra, sparse = T)
+  alra_data <- Matrix(alra_data, sparse = T)
   obj[["alra"]] <- CreateAssayObject(data = alra_data)
 
   return(obj)
