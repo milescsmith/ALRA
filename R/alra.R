@@ -50,7 +50,8 @@ alra <- function(A_norm, k = 0, q = 10, do.par = FALSE) {
 
   message("Randomized SVD\n")
   fastDecomp_noc <- rsvd(A_norm, k, q = q)
-  A_norm_rank_k <- fastDecomp_noc$u[, 1:k] %*% diag(fastDecomp_noc$d[1:k]) %>% tcrossprod(fastDecomp_noc$v[, 1:k])
+  A_norm_rank_k <- fastDecomp_noc$u[,1:k]%*%diag(fastDecomp_noc$d[1:k])%*% t(fastDecomp_noc$v[,1:k])
+#  A_norm_rank_k <- fastDecomp_noc$u[, 1:k] %*% diag(fastDecomp_noc$d[1:k]) %>% tcrossprod(fastDecomp_noc$v[, 1:k])
   
   message("Find mins\n")
   A_norm_rank_k_mins <- apply_fun(A_norm_rank_k, 2, min) %>% abs()
